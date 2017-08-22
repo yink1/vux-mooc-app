@@ -1,24 +1,64 @@
 <template>
   <div>
-    <div class='clearfix'>
-      <h4 class='fl hezuoSchool'>合作高校</h4>
-      <span class="fr showAll">查看全部</span>
-    </div>
-    
+    <group>
+      <cell is-link title="pullup" link="/component/pullup">Pullup</cell>
+      <cell is-link title="pulldown" link="/component/pulldown">Pulldown</cell>
+      <cell is-link title="pulldownpullup" link="/component/pulldown-pullup">PulldownPullup</cell>
+    </group>
+
+    <divider>不带滚动条的水平</divider>
     <scroller lock-y :scrollbar-x=false>
       <div class="box1">
-        <div class="box1-item" v-for="(it,i) in schoolList" >
-          <router-link :to='it.url'>
-          <img :src="it.src" alt="" />
-          <span class='schoolName'>{{it.title}}</span>
-          </router-link>
-        </div>
-        <div class='allSchool fl'>全部140所</div>
+        <div class="box1-item" v-for="i in 7"><span>{{' ' + i + ' '}}</span></div>
       </div>
-      
     </scroller>
+
+    <divider>显示滚动条的水平</divider>
+    <scroller lock-y scrollbar-x>
+      <div class="box1">
+        <div class="box1-item" v-for="i in 7"><span>{{' ' + i + ' '}}</span></div>
+      </div>
+    </scroller>
+
+    <divider>没有边缘回滚效果的水平</divider>
+    <scroller lock-y scrollbar-x :bounce=false>
+      <div class="box1">
+        <div class="box1-item" v-for="i in 7"><span>{{' ' + i + ' '}}</span></div>
+      </div>
+    </scroller>
+
+    <divider>竖向 scrollTop: {{scrollTop}}</divider>
+    <scroller lock-x height="200px" @on-scroll="onScroll" ref="scrollerEvent">
+      <div class="box2">
+        <p v-for="i in 80">placeholder {{i}}</p>
+      </div>
+    </scroller>
+
+    <x-button type="primary" @click.native="$refs.scrollerEvent.reset({top:0})">reset</x-button>
+
+    <divider>检查是否滚动到底部 </divider>
+    <scroller lock-x height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200">
+      <div class="box2">
+        <p v-for="i in bottomCount">placeholder {{i}}</p>
+        <load-more tip="loading"></load-more>
+      </div>
+    </scroller>
+
+    <divider>显示滚动条的竖向</divider>
+    <scroller lock-x scrollbar-y height="200px" ref="scroller">
+      <div class="box2">
+        <p v-for="i in 20" v-if="showList1">placeholder {{ i + '' + i }}</p>
+        <p v-for="i in 10" v-if="!showList1">placeholder {{ i }}</p>
+        <x-button style="margin:10px 0;" type="primary" @click.native="onClickButton">按钮</x-button>
+        <group>
+          <cell @click.native="onCellClick" title="Title" value="Value"></cell>
+        </group>
+      </div>
+    </scroller>
+    <x-button @click.native="changeList" type="primary">改变显示的内容</x-button>
   </div>
 </template>
+
 <script>
 import { Scroller, Divider, Spinner, XButton, Group, Cell, LoadMore } from 'vux'
 
@@ -37,54 +77,32 @@ export default {
       showList1: true,
       scrollTop: 0,
       onFetching: false,
-      bottomCount: 20,
-      schoolList: [
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '清华大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '上海复旦大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '华东师范大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '南京大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '浙江大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: 'www.baidu.com',
-          title: '哈尔滨工业大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '西安交通大学'
-        },
-        {
-          src: '/static/img/logo.png',
-          url: '/',
-          title: '同济大学'
-        }
-      ]
+      bottomCount: 20
     }
   },
   mounted () {
+    this.$nextTick(() => {
+      this.$refs.scrollerEvent.reset({top: 0})
+    })
+    this.$nextTick(() => {
+      this.$refs.scrollerBottom.reset({top: 0})
+    })
   },
   methods: {
+    onScrollBottom () {
+      if (this.onFetching) {
+        // do nothing
+      } else {
+        this.onFetching = true
+        setTimeout(() => {
+          this.bottomCount += 10
+          this.$nextTick(() => {
+            this.$refs.scrollerBottom.reset()
+          })
+          this.onFetching = false
+        }, 2000)
+      }
+    },
     onScroll (pos) {
       this.scrollTop = pos.top
     },
@@ -108,23 +126,19 @@ export default {
 
 <style scoped>
 .box1 {
-  height: 70px;
+  height: 100px;
   position: relative;
-  width: 840px;
-  margin-top:10px;
+  width: 1490px;
 }
 .box1-item {
-  width: 80px;
-  height: 70px;
+  width: 200px;
+  height: 100px;
+  background-color: #ccc;
   display:inline-block;
   margin-left: 15px;
   float: left;
   text-align: center;
-}
-.box1-item img{
-  width:40px;
-  height:40px;
-  margin:0px auto 6px;
+  line-height: 100px;
 }
 .box1-item:first-child {
   margin-left: 0;
@@ -132,40 +146,5 @@ export default {
 .box2-wrap {
   height: 300px;
   overflow: hidden;
-}
-.schoolName{
-  display: block;
-  width:66px;
-  margin:0 auto;
-  overflow: hidden;
-  text-overflow:ellipsis;
-  white-space:nowrap;
-  font-size: 14px;
-  color:#444;
-}
-.allSchool{
-  width:60px;
-  height:70px;
-  padding-top:10px;
-  background:#ccc;
-  text-align: center;
-  margin-left:15px;
-  box-sizing: border-box;
-  font-size: 16px;
-  color:#444;
-}
-.showAll{
-  font-size: 12px;
-  width:72px;
-  height:21px;
-  line-height: 21px;
-  border:1px solid #ccc;
-  text-align: center;
-  margin-top:6px;
-  margin-right: 6px;
-}
-.hezuoSchool{
-  margin-top:6px;
-  margin-left:6px;
 }
 </style>

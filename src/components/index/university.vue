@@ -1,8 +1,11 @@
 <template>
-  <div>
+  <div id='university'>
+    <div class="mainLine">
     <div class='clearfix'>
       <h4 class='fl hezuoSchool'>合作高校</h4>
-      <span class="fr showAll">查看全部</span>
+      <span class="fr showAll">查看全部
+        <i class="fa fa-chevron-right"></i>
+      </span>
     </div>
     
     <scroller lock-y :scrollbar-x=false>
@@ -17,6 +20,7 @@
       </div>
       
     </scroller>
+    </div>
   </div>
 </template>
 <script>
@@ -107,6 +111,10 @@ export default {
 </script>
 
 <style scoped>
+  #university{
+    padding-bottom:10px;
+    border-bottom:10px solid #F6F6F6;
+  }
 .box1 {
   height: 70px;
   position: relative;
@@ -155,8 +163,9 @@ export default {
   color:#444;
 }
 .showAll{
+  color:#999;
   font-size: 12px;
-  width:72px;
+  padding:0 8px 0 10px;
   height:21px;
   line-height: 21px;
   border:1px solid #ccc;

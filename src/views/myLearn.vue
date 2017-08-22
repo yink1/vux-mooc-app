@@ -1,13 +1,19 @@
 <template>
   <div>
-    123
+    <h2 class="learnHeade por">我的学习
+      <a class="list-group-item poa" href="#/index"><i class="fa fa-cog fa-fw"></i></a>
+    </h2>
+    <learnInfo></learnInfo>
+    <learnList></learnList>
   </div>
 </template>
 <script>
+  import learnList from '@/components/myLearn/learnList'
+  import learnInfo from '@/components/myLearn/learnInfo'
   export default {
     data () {
       return {
-
+        msgNum: 2
       }
     },
     beforeRouteEnter (to, from, next) {
@@ -24,6 +30,10 @@
         // this.dataLenth = this.dataInfo.data.length
       })
     },
+    components: {
+      learnList,
+      learnInfo
+    },
     created () {},
     mounted () {},
     computed: {},
@@ -31,5 +41,18 @@
   }
 </script>
 <style>
-  
+  .learnHeade{
+    text-align: center;
+    text-indent: 10px;
+  }
+  .por{
+    position: relative;
+  }
+  .poa{
+    position: absolute;
+  }
+  .learnHeade .list-group-item{
+    right: 10px;
+    color:#444;
+  }
 </style>

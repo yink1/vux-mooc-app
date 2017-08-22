@@ -1,16 +1,18 @@
 <template>
-  <div class="hello">
+  <div class="hello" id='index'>
     <!--<scroller lock-x scrollbar-y use-pulldown height='1000000%' @on-pulldown-loading="load1" overflow = 'auto' ref="demo1">-->
-    <scroller lock-x scrollbar-y use-pulldown height='100000000%' :pulldown-config="{content:'下拉刷新',downContent:'下拉刷新',upContent:'释放刷新',loadingContent:'加载中'}" @on-pulldown-loading="load2" v-model="status1">
+    <!--<scroller lock-x scrollbar-y use-pulldown height='100000000%' :pulldown-config="{content:'下拉刷新',downContent:'下拉刷新',upContent:'释放刷新',loadingContent:'加载中'}" @on-pulldown-loading="load2" v-model="status1">-->
       <div class='por'>
       	<banner></banner>
         <search class='poa poaSearch borderNone'></search>
       </div>
-    
-    <titleTab></titleTab>
-    <recommend></recommend>
-    <university></university>
-    </scroller>
+      <titleTab></titleTab>
+      <recommend></recommend>
+      <university></university>
+      <discuss></discuss>
+      <titlelist></titlelist>
+      <wonderfulclass :wonderList = 'wonderList'></wonderfulclass>
+    <!--</scroller>-->
   </div>
 </template>
 
@@ -21,23 +23,63 @@ import search from '@/share/search'
 import titleTab from '@/components/index/titleTab'
 import university from '@/components/index/university'
 import recommend from '@/components/index/recommend'
-
+import discuss from '@/components/index/discuss'
+import titlelist from '@/components/index/titlelist'
+import wonderfulclass from '@/components/index/wonderfulclass'
 export default {
   data () {
     return {
+      wonderList: [
+        './static/img/titleImg11.jpg',
+        './static/img/titleImg11.jpg'
+      ],
       status1: {
         pulldownStatus: 'default'
       },
-      msg: 'Welcome to Your Vue.js App'
+      msgNum: 0
     }
   },
+  created () {
+  // this.scroll()
+  },
+  mounted () {
+    this.scroll()
+//  var el = document.getElementById('index')
+//  console.log(el.offsetHeight)
+//  var _this = this
+//  var timerId = null // 定时id
+//  window.onscroll = function () {
+//    // var box = document.getElementById('index')
+//    var scrollTop = document.body.scrollTop    // 页面滚动高度
+//    // var windheight = document.body.offsetHeight    // 页面总的高度
+//    var h = document.documentElement.clientHeight || document.body.clientHeight
+//    // 视口高度
+//    // 滚动到底部
+//    if (scrollTop >= (el.offsetHeight - h - 40) && _this.msgNum === 0) {
+//      console.log(12, _this.msgNum)
+//      // 设置延时避免滚动到底部时多次触发效果
+//      if (_this.wonderList.length < 10) {
+//        clearTimeout(timerId)
+//        timerId = setTimeout(function () {
+//          _this.wonderList.push('./static/img/titleImg11.jpg')
+//        }, 200)
+//      } else if (_this.wonderList.length >= 10) {
+//        document.getElementById('myDIV').classList.remove('dn')
+//        clearTimeout(timerId)
+//      }
+//    }
+//  }
+  },
   components: {
+    discuss,
     banner,
     search,
     titleTab,
     university,
     recommend,
-    Scroller
+    Scroller,
+    titlelist,
+    wonderfulclass
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -45,25 +87,47 @@ export default {
       if (to.path.indexOf('/allCourse') >= 0) {
         console.log(vm.$options.parent.selectNum)
         vm.$options.parent.selectNum = 1
+        this.msgNum = vm.$options.parent.selectNum
       } else if (to.path.indexOf('/myLearn') >= 0) {
         console.log(2)
         vm.$options.parent.selectNum = 2
+        this.msgNum = vm.$options.parent.selectNum
       } else if (to.path.indexOf('/index') >= 0) {
         console.log(0)
         vm.$options.parent.selectNum = 0
+        this.msgNum = vm.$options.parent.selectNum
       }
       // vm.get(
       // this.dataLenth = this.dataInfo.data.length
     })
   },
   methods: {
-    load1 () {
-      // this.n1 += 10
-      this.$nextTick(() => {
-        setTimeout(() => {
-          this.$refs.demo1.donePulldown()
-        }, 1000)
-      })
+    scroll () {
+      var el = document.getElementById('index')
+      console.log(el.offsetHeight)
+      var _this = this
+      var timerId = null // 定时id
+      window.onscroll = function () {
+        // var box = document.getElementById('index')
+        var scrollTop = document.body.scrollTop    // 页面滚动高度
+        // var windheight = document.body.offsetHeight    // 页面总的高度
+        var h = document.documentElement.clientHeight || document.body.clientHeight
+        // 视口高度
+        // 滚动到底部
+        if (scrollTop >= (el.offsetHeight - h - 40) && _this.msgNum === 0) {
+          console.log(12, _this.msgNum)
+          // 设置延时避免滚动到底部时多次触发效果
+          if (_this.wonderList.length < 10) {
+            clearTimeout(timerId)
+            timerId = setTimeout(function () {
+              _this.wonderList.push('./static/img/titleImg11.jpg')
+            }, 200)
+          } else if (_this.wonderList.length >= 10) {
+            document.getElementById('myDIV').classList.remove('dn')
+            clearTimeout(timerId)
+          }
+        }
+      }
     },
     load2 () {
       setTimeout(() => {
@@ -76,10 +140,15 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  .box{height:100px;background:#ccc;margin:10px 0;}
   *{
     margin:0;
     padding:0;
     border:0;
+  }
+  .mainLine{
+    width:96%;
+    margin:0 auto;
   }
   .por{position:relative;}
   .poa{position:absolute;}
@@ -88,10 +157,6 @@ export default {
     left:0;
     top:1px;
   }
-  #vux-scroller-pgiyk{
-    height:400%;
-    overflow: auto!important;
-    }
 h1, h2 {
   font-weight: normal;
 }
@@ -117,7 +182,7 @@ a {
   
 }
 .hello{
-  padding-bottom:60px;
+  padding-bottom:160px;
 }
 .borderNone .weui-search-bar{
     background-color: transparent!important;

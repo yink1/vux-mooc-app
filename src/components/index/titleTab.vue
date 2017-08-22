@@ -1,9 +1,9 @@
 <template>
   <div>
-    <img class='titleH' :src="urld">
+    <img class='titleH' :src="urld" alt="" >
     <div class="clearfix itemTitle">
     	<li class="fl" v-for='(it, i) in itemList'>
-    	  <img :src="it.src"/>
+    	  <img :src="it.src" alt="" />
     	  <span>{{it.title}}</span>
     	</li>
     </div>
@@ -87,13 +87,15 @@ export default {
 }
 .itemTitle li img{
   width:50%;
-  height:auto;
+  
   margin:10px auto 0;
+  height:auto;
 }
 .titleH{
   width:90%;
-  height:auto;
+  
   margin:10px auto 0;
+  height:auto;
 }
 </style>
 

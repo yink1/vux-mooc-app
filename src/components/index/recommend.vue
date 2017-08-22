@@ -1,5 +1,6 @@
 <template>
   <div id='recommend'>
+    <div class="mainLine">
     <div id="inRecommend">
       <h4>推荐课程</h4>
       <img class='titleImg' :src="urli"/>
@@ -15,6 +16,7 @@
           </div>
         </div>  
       </scroller>
+    </div>
     </div>
   </div>
 </template>
@@ -86,8 +88,11 @@
     border-bottom: 10px solid #f6f6f6;
   }
   #inRecommend{
-    width:96%;
     margin:5px auto 0;
+  }
+  .mainLine{
+    width:96%;
+    margin:0 auto;
   }
   .titleImg{
     width:100%;

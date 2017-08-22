@@ -13,6 +13,7 @@
   export default {
     data () {
       return {
+        msgNum: 1,
         courseH: './static/img/courseH.jpg'
       }
     },
@@ -49,11 +50,15 @@
     position: fixed;
     left:0;
     top:0;
+    z-index: 123456789;
   }
   .courseH{
     width:96%;
     margin:50px auto 10px;
     height:auto;
+  }
+  .poaSearch{
+    width:100%;
   }
   
 </style>

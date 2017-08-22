@@ -9,4 +9,21 @@
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>
+  <script>
+    window.onload = function () {
+      var getfont = function () {
+      
+      var html1 = document.documentElement
+
+      var screen=html1.clientWidth
+
+      html1.style.fontSize=0.05333334 * screen + "px"
+
+      }
+      getfont()
+      window.onresize = function () {
+              getfont()
+            }
+    }
+  </script>
 </html>

@@ -2,19 +2,20 @@
   <div>
     <tabbar>
       <tabbar-item :selected='0 === selectNum' link="/">
-        <img slot="icon" src="../assets/logo.png">
+        <i slot="icon" class="fa fa-home"></i>
         <span slot="label">首页</span>
       </tabbar-item>
-      <tabbar-item show-dot :selected='1 === selectNum' link="/allCourse">
-        <img slot="icon" src="../assets/logo.png">
+      <tabbar-item  :selected='1 === selectNum' link="/allCourse">
+        <i slot="icon" class="fa fa-file-text-o"></i>
         <span slot="label">全部课程</span>
       </tabbar-item>
-      <tabbar-item link="/myLearn" :selected='2 === selectNum'>
-        <img slot="icon" src="../assets/logo.png">
+      <tabbar-item link="/myLearn" :show-dot='dot' :selected='2 === selectNum'>
+        <i slot="icon" class="fa fa-user-circle"></i>
         <span slot="label">我的学习</span>
       </tabbar-item>
       <tabbar-item badge="2" link="/demo" :selected='3 === selectNum'>
-        <img slot="icon" src="../assets/logo.png">
+        <!--<img slot="icon" src="../assets/logo.png">-->
+        <i slot="icon" class="fa fa-cloud-download"></i>
         <span slot="label">demo</span>
       </tabbar-item>
     </tabbar>
@@ -45,7 +46,8 @@ import { Tabbar, TabbarItem, Group, Cell } from 'vux'
 export default {
   data () {
     return {
-      isTabbarDemo: false
+      isTabbarDemo: false,
+      dot: true
     }
   },
   props: {
