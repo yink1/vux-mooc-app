@@ -11,20 +11,6 @@
                     课时
       </div>
     </div>
-    <!--<scroller lock-x height="200px" @on-scroll-bottom="onScrollBottom" ref="scrollerBottom" :scroll-bottom-offst="200">
-      <div class="box2">
-        <p class="por" v-for='item in wonderList'>
-          <img class='mb20 imgWonderList' :src="item" alt="" />
-          <div class="poa sideVideoRecord">
-            <i class="fa fa-circle redCircle"></i>
-            <span></span>
-                        课时
-          </div>
-        </p>-->
-        <!--<p v-for="i in bottomCount">placeholder {{i}}</p>-->
-        <!--<load-more tip="loading"></load-more>
-      </div>
-    </scroller>-->
     <div id='myDIV' class="dn">
               到底了~想不到你看到了这里
     </div>
@@ -41,41 +27,57 @@
     },
     data () {
       return {
+        wonderList: [
+          './static/img/titleImg11.jpg',
+          './static/img/titleImg11.jpg'
+        ],
         pageNum: 1
       }
     },
     props: {
-      wonderList: {
-        default: '[]'
-      }
-    },
-    created () {
-//    var _this = this
-//    var timerId = null // 定时id
-//    window.onscroll = function () {
-//      // var box = document.getElementById('index')
-//      var scrollTop = document.body.scrollTop    // 页面滚动高度
-//      var windheight = document.body.offsetHeight    // 页面总的高度
-//      var h = document.documentElement.clientHeight || document.body.clientHeight
-//      // 视口高度
-//      // 滚动到底部
-//      if (scrollTop >= (windheight - h)) {
-//        // 设置延时避免滚动到底部时多次触发效果
-//        if (_this.wonderList.length < 10) {
-//          clearTimeout(timerId)
-//          timerId = setTimeout(function () {
-//            _this.wonderList.push('./static/img/titleImg11.jpg')
-//          }, 200)
-//        } else if (_this.wonderList.length >= 10) {
-//          document.getElementById('myDIV').classList.remove('dn')
-//          clearTimeout(timerId)
-//        }
-//      }
+//    wonderList: {
+//      default: '[]'
 //    }
     },
-    mounted () {},
+    created () {
+      // 0
+    },
+    mounted () {
+      var el = document.getElementById('index')
+      console.log(23, el.offsetHeight, this.wonderList)
+      this.scroll()
+    },
     computed: {},
     methods: {
+      scroll () {
+        var el = document.getElementById('index')
+        var elOffsetHeight = el.offsetHeight
+        console.log(el.offsetHeight)
+        var _this = this
+        var timerId = null // 定时id
+        window.onscroll = function () {
+          // var box = document.getElementById('index')
+          var scrollTop = document.body.scrollTop    // 页面滚动高度
+          // var windheight = document.body.offsetHeight    // 页面总的高度
+          var h = document.documentElement.clientHeight || document.body.clientHeight
+          // 视口高度
+          // 滚动到底部
+          if (scrollTop >= (elOffsetHeight - h - 40) && localStorage.getItem('ItemNum') === '0') {
+            console.log(12, _this.msgNum)
+            // 设置延时避免滚动到底部时多次触发效果
+            if (_this.wonderList.length < 10) {
+              clearTimeout(timerId)
+              timerId = setTimeout(function () {
+                _this.wonderList.push('./static/img/titleImg11.jpg')
+                console.log(11, _this.wonderList, this)
+              }, 200)
+            } else if (_this.wonderList.length >= 10) {
+              document.getElementById('myDIV').classList.remove('dn')
+              clearTimeout(timerId)
+            }
+          }
+        }
+      },
       onScrollBottom () {
         if (this.onFetching) {
           // do nothing

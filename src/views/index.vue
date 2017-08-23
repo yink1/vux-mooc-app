@@ -11,7 +11,7 @@
       <university></university>
       <discuss></discuss>
       <titlelist></titlelist>
-      <wonderfulclass :wonderList = 'wonderList'></wonderfulclass>
+      <wonderfulclass></wonderfulclass>
     <!--</scroller>-->
   </div>
 </template>
@@ -40,35 +40,13 @@ export default {
     }
   },
   created () {
-  // this.scroll()
+    // 0
   },
+  beforeMount () {},
   mounted () {
-    this.scroll()
-//  var el = document.getElementById('index')
-//  console.log(el.offsetHeight)
-//  var _this = this
-//  var timerId = null // 定时id
-//  window.onscroll = function () {
-//    // var box = document.getElementById('index')
-//    var scrollTop = document.body.scrollTop    // 页面滚动高度
-//    // var windheight = document.body.offsetHeight    // 页面总的高度
-//    var h = document.documentElement.clientHeight || document.body.clientHeight
-//    // 视口高度
-//    // 滚动到底部
-//    if (scrollTop >= (el.offsetHeight - h - 40) && _this.msgNum === 0) {
-//      console.log(12, _this.msgNum)
-//      // 设置延时避免滚动到底部时多次触发效果
-//      if (_this.wonderList.length < 10) {
-//        clearTimeout(timerId)
-//        timerId = setTimeout(function () {
-//          _this.wonderList.push('./static/img/titleImg11.jpg')
-//        }, 200)
-//      } else if (_this.wonderList.length >= 10) {
-//        document.getElementById('myDIV').classList.remove('dn')
-//        clearTimeout(timerId)
-//      }
-//    }
-//  }
+    var el = document.getElementById('index')
+    console.log(22, el.offsetHeight, this.wonderList)
+    // this.scroll()
   },
   components: {
     discuss,
@@ -87,48 +65,49 @@ export default {
       if (to.path.indexOf('/allCourse') >= 0) {
         console.log(vm.$options.parent.selectNum)
         vm.$options.parent.selectNum = 1
-        this.msgNum = vm.$options.parent.selectNum
+        document.body.scrollTop = 0
       } else if (to.path.indexOf('/myLearn') >= 0) {
         console.log(2)
         vm.$options.parent.selectNum = 2
-        this.msgNum = vm.$options.parent.selectNum
+        document.body.scrollTop = 0
       } else if (to.path.indexOf('/index') >= 0) {
         console.log(0)
         vm.$options.parent.selectNum = 0
-        this.msgNum = vm.$options.parent.selectNum
+        document.body.scrollTop = 0
       }
       // vm.get(
       // this.dataLenth = this.dataInfo.data.length
     })
   },
   methods: {
-    scroll () {
-      var el = document.getElementById('index')
-      console.log(el.offsetHeight)
-      var _this = this
-      var timerId = null // 定时id
-      window.onscroll = function () {
-        // var box = document.getElementById('index')
-        var scrollTop = document.body.scrollTop    // 页面滚动高度
-        // var windheight = document.body.offsetHeight    // 页面总的高度
-        var h = document.documentElement.clientHeight || document.body.clientHeight
-        // 视口高度
-        // 滚动到底部
-        if (scrollTop >= (el.offsetHeight - h - 40) && _this.msgNum === 0) {
-          console.log(12, _this.msgNum)
-          // 设置延时避免滚动到底部时多次触发效果
-          if (_this.wonderList.length < 10) {
-            clearTimeout(timerId)
-            timerId = setTimeout(function () {
-              _this.wonderList.push('./static/img/titleImg11.jpg')
-            }, 200)
-          } else if (_this.wonderList.length >= 10) {
-            document.getElementById('myDIV').classList.remove('dn')
-            clearTimeout(timerId)
-          }
-        }
-      }
-    },
+//  scroll () {
+//    var el = document.getElementById('index')
+//    var elOffsetHeight = el.offsetHeight
+//    console.log(el.offsetHeight)
+//    var _this = this
+//    var timerId = null // 定时id
+//    window.onscroll = function () {
+//      // var box = document.getElementById('index')
+//      var scrollTop = document.body.scrollTop    // 页面滚动高度
+//      // var windheight = document.body.offsetHeight    // 页面总的高度
+//      var h = document.documentElement.clientHeight || document.body.clientHeight
+//      // 视口高度
+//      // 滚动到底部
+//      if (scrollTop >= (elOffsetHeight - h - 40) && localStorage.getItem('ItemNum') === '0') {
+//        console.log(12, _this.msgNum)
+//        // 设置延时避免滚动到底部时多次触发效果
+//        if (_this.wonderList.length < 10) {
+//          clearTimeout(timerId)
+//          timerId = setTimeout(function () {
+//            _this.wonderList.push('./static/img/titleImg11.jpg')
+//          }, 200)
+//        } else if (_this.wonderList.length >= 10) {
+//          document.getElementById('myDIV').classList.remove('dn')
+//          clearTimeout(timerId)
+//        }
+//      }
+//    }
+//    },
     load2 () {
       setTimeout(() => {
         this.status1.pulldownStatus = 'default'

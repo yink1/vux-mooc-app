@@ -67,14 +67,14 @@
   .headI{
     width:100%;
     left:0;
-    top:20%;
+    top:1.5rem;
     height:100px;
     text-align: center;
     color:#fff;
   }
   .headImg{
-    width:60px;
-    height:60px;
+    width:3rem;
+    height:3rem;
     border:2px solid #fff;
     border-radius: 50%;
     display: inline-block;

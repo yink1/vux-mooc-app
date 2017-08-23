@@ -5,7 +5,9 @@
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
       <router-view class="router-view"></router-view>
     </transition>-->
-    <router-view class="router-view"></router-view>
+    <keep-alive>
+      <router-view class="router-view"></router-view>
+    </keep-alive>
     <tabbar :selectNum='selectNum' ref='tabbar'></tabbar>
   </div>
 </template>
@@ -22,16 +24,22 @@ export default {
   components: {
     tabbar
   },
+  created () {
+    localStorage.setItem('ItemNum', 0)
+  },
   methods: {
   },
   watch: {
     $route (to, from) {
       if (to.path.indexOf('/allCourse') >= 0) {
         this.selectNum = 1
+        localStorage.setItem('ItemNum', 1)
       } else if (to.path.indexOf('/myLearn') >= 0) {
         this.selectNum = 2
+        localStorage.setItem('ItemNum', 2)
       } else if (to.path.indexOf('/index') >= 0) {
         this.selectNum = 0
+        localStorage.setItem('ItemNum', 0)
       }
         // vm.get(
       // this.dataLenth = this.dataInfo.data.length

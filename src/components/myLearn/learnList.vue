@@ -3,22 +3,24 @@
     <div class="outTitle">
       <div class="clearfix titleL">
         <div class="fl">我的课程</div>
+        <!--<popup-picker title="" :data="options2" v-model="option2" value-text-align="left"></popup-picker>-->
         <group class='fr blankTitle'>
           <popup-radio title="" :options="options2" v-model="option2"></popup-radio>
         </group>
       </div>
     </div>
-    <ul v-if='mainList.length > 0'>
-      <li class="clearfix" v-for='it in mainList'>
+    <ul v-if='mainListed.length > 0'>
+      <li class="clearfix titleB" v-for='it in mainListed'>
         <img :src="it.src" alt="" class="fl sideListLeft" />
-        <h3 class="">{{it.title}}</h3>
-        <p>{{it.school}}</p>
-        <p>{{it.progross}}</p>
-        <box gap="10px">
-          <x-progress :percent="percent2" :show-cancel="false"></x-progress>
-        </box>
+        <div class='fl sideListRight'>
+          <div class="sideTitle">{{it.title}}</div>
+          <p class='sideSchool'>{{it.school}}</p>
+          <p class='sideProgross'>{{it.progross}}</p>
+          <box gap="2px 0 0 0">
+            <x-progress :percent="percent2" :show-cancel="false"></x-progress>
+          </box>
+        </div>
       </li>
-      
     </ul>
     <div class='noList' v-else>
            你当前没有<span>{{getOption2}}</span>的课程
@@ -37,8 +39,15 @@
             title: 'Omg',
             school: '中国海洋大学',
             progross: '进行至第1周，共17周'
+          },
+          {
+            src: './static/img/learnList1.jpg',
+            title: 'Omg',
+            school: '中国海洋大学',
+            progross: '进行至第1周，共17周'
           }
         ],
+        mainListed: [],
         option2: '正在进行',
         options2: [{
           key: 'A',
@@ -61,7 +70,9 @@
       XProgress,
       Box
     },
-    created () {},
+    created () {
+      this.mainListed = this.mainList
+    },
     mounted () {},
     computed: {
       getOption2 () {
@@ -83,7 +94,15 @@
     },
     watch: {
       option2 (n, o) {
-        console.log(n, o)
+        if (n === 'A' || n === '正在进行') {
+          this.mainListed = this.mainList
+        } else if (n === 'B') {
+          this.mainListed = this.mainList
+        } else if (n === 'C') {
+          this.mainListed = []
+        } else if (n === 'D') {
+          this.mainListed = []
+        }
       }
     }
   }
@@ -93,11 +112,20 @@
     text-align:center;
     margin-top:50px;
     color:#ccc;
+    font-size: 14px;
   }
+  .titleB{width:96%;margin:0 auto;border-bottom:1px solid #ccc;padding:6px 0;}
+  .sideListRight{width:50%;
+    
+  }
+  .sideListRight .sideTitle{font-size: 18px;word-break:break-all;height:56px;overflow: hidden;}
  .sideListLeft{
    width:45%;
-   height:90px;
+   height:100px;
+   margin-right:3%;
  }
+ .sideSchool{font-size: 12px;color:#ccc;}
+ .sideProgross{font-size: 12px; color:#04BE02;}
   .blankTitle .weui-cells{
     margin-top:0;
     background:#f6f6f6;
