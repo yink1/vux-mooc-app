@@ -42,7 +42,7 @@
           },
           {
             src: './static/img/learnList1.jpg',
-            title: 'Omg',
+            title: 'Omg中国海洋大学中国海洋大学',
             school: '中国海洋大学',
             progross: '进行至第1周，共17周'
           }

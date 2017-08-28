@@ -2,94 +2,76 @@
   <div id='wonderfulClass' class="mainLine">
     <div class="clearfix titleHead">
       <h4 class='fl hezuoSchool'>精彩课时</h4>
-    </div>      
-    <div class="por" v-for='item in wonderList'>
-      <img class='mb20 imgWonderList' :src="item" alt="" />
-      <div class="poa sideVideoRecord">
-        <i class="fa fa-circle redCircle"></i>
-        <span></span>
-                    课时
+    </div>
+    <scroller lock-x scrollbar-y use-pullup :pullup-config="pullupConfig2" height="480px" ref="demo2" @on-pullup-loading="load2">
+      <div class="box2">
+        <div class="por" v-for='item in wonderList'>
+          <img class='mb20 imgWonderList' :src="item" alt="" />
+          <div class="poa sideVideoRecord">
+            <i class="fa fa-circle redCircle"></i>
+            <span></span>
+                       课时
+          </div>
+        </div>
+        <p id='myDIV' class='dn'>没有了~没想到你看到了这里</p>
       </div>
-    </div>
-    <div id='myDIV' class="dn">
-              到底了~想不到你看到了这里
-    </div>
+    </scroller>
   </div>
 </template>
 <script>
-  import { Scroller, Divider, Spinner, LoadMore } from 'vux'
+  import { Scroller, Divider, Spinner } from 'vux'
   export default {
     components: {
       Scroller,
       Divider,
-      Spinner,
-      LoadMore
+      Spinner
     },
     data () {
       return {
+        show2: true,
         wonderList: [
           './static/img/titleImg11.jpg',
           './static/img/titleImg11.jpg'
         ],
-        pageNum: 1
+        pageNum: 1,
+        pullupConfig2: {
+          content: '上拉加载更多',
+          downContent: '松开进行加载',
+          upContent: '上拉加载更多',
+          loadingContent: '加载中...'
+        }
       }
     },
-    props: {
+//  props: {
 //    wonderList: {
 //      default: '[]'
 //    }
-    },
+//  },
     created () {
       // 0
     },
     mounted () {
       var el = document.getElementById('index')
       console.log(23, el.offsetHeight, this.wonderList)
-      this.scroll()
     },
     computed: {},
     methods: {
-      scroll () {
-        var el = document.getElementById('index')
-        var elOffsetHeight = el.offsetHeight
-        console.log(el.offsetHeight)
+      load2 () {
         var _this = this
-        var timerId = null // 定时id
-        window.onscroll = function () {
-          // var box = document.getElementById('index')
-          var scrollTop = document.body.scrollTop    // 页面滚动高度
-          // var windheight = document.body.offsetHeight    // 页面总的高度
-          var h = document.documentElement.clientHeight || document.body.clientHeight
-          // 视口高度
-          // 滚动到底部
-          if (scrollTop >= (elOffsetHeight - h - 40) && localStorage.getItem('ItemNum') === '0') {
-            console.log(12, _this.msgNum)
-            // 设置延时避免滚动到底部时多次触发效果
-            if (_this.wonderList.length < 10) {
-              clearTimeout(timerId)
-              timerId = setTimeout(function () {
-                _this.wonderList.push('./static/img/titleImg11.jpg')
-                console.log(11, _this.wonderList, this)
-              }, 200)
-            } else if (_this.wonderList.length >= 10) {
-              document.getElementById('myDIV').classList.remove('dn')
-              clearTimeout(timerId)
-            }
-          }
-        }
-      },
-      onScrollBottom () {
-        if (this.onFetching) {
-          // do nothing
-        } else {
+        setTimeout(() => {
+          console.log(0)
+          _this.wonderList.push('./static/img/titleImg11.jpg')
           setTimeout(() => {
-            this.$nextTick(() => {
-              this.wonderList.push(this.wonderList)
-              this.$refs.scrollerBottom.reset()
-            })
-            this.onFetching = false
-          }, 2000)
-        }
+            console.log(1)
+            this.$refs.demo2.donePullup()
+          }, 100)
+          if (_this.wonderList.length === 10) { // unload plugin
+            document.getElementById('myDIV').classList.remove('dn')
+            setTimeout(() => {
+              this.$refs.demo2.disablePullup()
+            }, 100)
+          }
+        }, 600)
       }
     }
   }
@@ -98,6 +80,7 @@
   #myDIV{
     font-size: 14px;
     text-align: center;
+    height:20px;
   }
   .box{height:100px;background:#ccc;margin:10px 0;}
   .imgWonderList{

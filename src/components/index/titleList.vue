@@ -179,7 +179,7 @@ white-space: nowrap;/*强制不换行*/
     margin-bottom:10px;
   }
   .outMainLine{
-    border-bottom:10px solid #ccc;
+    border-bottom:10px solid #f4f4f4;
   }
   .imgList{
     

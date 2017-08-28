@@ -46,7 +46,7 @@ export default {
   mounted () {
     var el = document.getElementById('index')
     console.log(22, el.offsetHeight, this.wonderList)
-    // this.scroll()
+//  this.scroll()
   },
   components: {
     discuss,
@@ -89,17 +89,19 @@ export default {
 //    window.onscroll = function () {
 //      // var box = document.getElementById('index')
 //      var scrollTop = document.body.scrollTop    // 页面滚动高度
-//      // var windheight = document.body.offsetHeight    // 页面总的高度
+//      var windheight = document.body.offsetHeight    // 页面总的高度
+//      console.log(13, windheight)
 //      var h = document.documentElement.clientHeight || document.body.clientHeight
 //      // 视口高度
 //      // 滚动到底部
-//      if (scrollTop >= (elOffsetHeight - h - 40) && localStorage.getItem('ItemNum') === '0') {
+//      if (scrollTop >= (elOffsetHeight - h) && localStorage.getItem('ItemNum') === '0') {
 //        console.log(12, _this.msgNum)
 //        // 设置延时避免滚动到底部时多次触发效果
 //        if (_this.wonderList.length < 10) {
 //          clearTimeout(timerId)
 //          timerId = setTimeout(function () {
 //            _this.wonderList.push('./static/img/titleImg11.jpg')
+//            console.log(11, _this.wonderList, this)
 //          }, 200)
 //        } else if (_this.wonderList.length >= 10) {
 //          document.getElementById('myDIV').classList.remove('dn')
@@ -107,7 +109,7 @@ export default {
 //        }
 //      }
 //    }
-//    },
+//  },
     load2 () {
       setTimeout(() => {
         this.status1.pulldownStatus = 'default'
@@ -161,7 +163,7 @@ a {
   
 }
 .hello{
-  padding-bottom:160px;
+  padding-bottom:70px;
 }
 .borderNone .weui-search-bar{
     background-color: transparent!important;

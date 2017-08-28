@@ -5,9 +5,7 @@
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
       <router-view class="router-view"></router-view>
     </transition>-->
-    <keep-alive>
-      <router-view class="router-view"></router-view>
-    </keep-alive>
+    <router-view class="router-view"></router-view>
     <tabbar :selectNum='selectNum' ref='tabbar'></tabbar>
   </div>
 </template>
@@ -54,6 +52,7 @@ export default {
 body {
   font-size: 20px;
   background-color: #fbf9fe;
+  color:#444;
 }
 ul,li{list-style: none;}
 .clearfix {

@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import Hello from '@/views/index'
 import allCourse from '@/views/allCourse'
 import myLearn from '@/views/myLearn'
-import demo from '@/components/demo'
 
 // import hu from '@/components/hu'
 // import swipeoutItem from '@/components/banner'
@@ -21,11 +20,6 @@ export default new Router({
       path: '/index',
       name: 'Hello',
       component: Hello
-    },
-    {
-      path: '/demo',
-      name: 'demo',
-      component: demo
     },
     {
       path: '/allCourse',

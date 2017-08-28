@@ -13,11 +13,6 @@
         <i slot="icon" class="fa fa-user-circle"></i>
         <span slot="label">我的学习</span>
       </tabbar-item>
-      <tabbar-item badge="2" link="/demo" :selected='3 === selectNum'>
-        <!--<img slot="icon" src="../assets/logo.png">-->
-        <i slot="icon" class="fa fa-cloud-download"></i>
-        <span slot="label">demo</span>
-      </tabbar-item>
     </tabbar>
     <!--<tabbar class="vux-demo-tabbar" icon-class="vux-center" v-show="!isTabbarDemo" slot="bottom">
           <tabbar-item :link="{path:'/'}" :selected="route.path === '/'">
@@ -53,7 +48,7 @@ export default {
   props: {
     selectNum: {
       type: Number,
-      default: 1
+      default: 0
     }
   },
   components: {
@@ -64,3 +59,8 @@ export default {
   }
 }
 </script>
+<style>
+  .weui-tabbar__item{
+    padding-top:10px!important;
+  }
+</style>
