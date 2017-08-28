@@ -29,6 +29,7 @@ export default {
   },
   watch: {
     $route (to, from) {
+      document.body.scrollTop = '0'
       if (to.path.indexOf('/allCourse') >= 0) {
         this.selectNum = 1
         localStorage.setItem('ItemNum', 1)
